@@ -1,0 +1,22 @@
+---
+- name: Web Server Deployment
+  hosts: lab2
+  become: yes
+
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+
+    - name: Ensure Apache is running
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Deploy custom webpage
+      copy:
+        dest: /var/www/html/index.html
+        content: "<h1>Lab 2 Automated Deployment Successful</h1>"

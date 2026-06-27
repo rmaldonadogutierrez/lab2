@@ -1,0 +1,26 @@
+---
+- name: User Management Playbook
+  hosts: lab2
+  become: yes
+
+  tasks:
+    - name: Create devuser
+      user:
+        name: devuser
+        state: present
+        groups: sudo
+        append: yes
+        create_home: yes
+
+    - name: Set password for devuser
+      ansible.builtin.shell: echo "devuser:Password123" | chpasswd
+
+    - name: Create analyst user
+      user:
+        name: analyst
+        state: present
+        create_home: yes
+
+    - name: Set password for analyst
+      ansible.builtin.shell: echo "analyst:Password123" | chpasswd
+
